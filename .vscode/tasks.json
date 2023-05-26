@@ -1,0 +1,30 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "SDL2",
+            "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "${workspaceFolder}\\src\\*.cpp",
+                "-I${workspaceFolder}\\include",
+                "-I${workspaceFolder}\\src",
+                "-L${workspaceFolder}\\lib",
+                "-lmingw32",
+                "-lsfml-graphics",
+                "-lsfml-window",
+                "-lsfml-system",
+                "-o",
+                "${workspaceFolder}\\build\\${workspaceFolderBasename}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        }
+    ],
+    "version": "2.0.0"
+}

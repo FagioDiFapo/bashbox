@@ -23,6 +23,7 @@ bool View::initialize()
     return true;
 }
 
+//Outdated render function
 void View::render()
 {
     window->clear();

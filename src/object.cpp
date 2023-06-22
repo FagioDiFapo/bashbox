@@ -5,6 +5,11 @@ Object::Object()
 
 }
 
+Object::Object(sf::Color color)
+{
+    this->color = color;
+}
+
 Object::~Object()
 {
     delete shape;
@@ -25,9 +30,19 @@ float Object::getDistance(const Object &object1, const Object &object2)
     return calculateDistance(object1.shape->getPosition(), object2.shape->getPosition());
 }
 
+float getGravitationalForce(const  Object &object2)
+{
+    return 0;
+}
+
 float Object::getMass() const
 {
     return this->mass;
+}
+
+void Object::setColor(sf::Color color)
+{
+    this->color = color;
 }
 
 void Object::updatePosition(const double &deltaTime)

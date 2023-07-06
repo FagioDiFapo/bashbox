@@ -5,6 +5,16 @@ sf::Vector2f operator*(sf::Vector2f vector, float value)
     return sf::Vector2f(vector.x * value, vector.y * value);
 }
 
+sf::Vector2f operator*(sf::Vector2f vector1, sf::Vector2f vector2)
+{
+    return sf::Vector2f(vector1.x * vector2.x, vector1.y * vector2.y);
+}
+
+sf::Vector2f operator/(sf::Vector2f vector1, sf::Vector2f vector2)
+{
+    return sf::Vector2f(vector1.x / vector2.x, vector1.y / vector2.y);
+}
+
 sf::Vector2f calculateVector(sf::Vector2f point1, sf::Vector2f point2)
 {
     return sf::Vector2f(point2.x - point1.x, point2.y - point1.y);

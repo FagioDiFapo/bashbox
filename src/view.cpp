@@ -34,6 +34,20 @@ void View::render()
     window->display();
 }
 
+sf::Vector2f View::getAbsolutePosition(sf::Vector2f windowCoordinates)
+{
+    sf::Vector2f pointWindowPosition = windowCoordinates;
+    sf::Vector2f pointViewPosition = pointWindowPosition / (sf::Vector2f)window->getSize() * view.getSize();
+    sf::Vector2f viewPosition = view.getCenter() - view.getSize() / 2.f;
+    return viewPosition + pointViewPosition;
+}
+
+sf::Vector2f View::getMousePosition()
+{
+    sf::Vector2i integerMousePosition = sf::Mouse::getPosition(*window);
+    return static_cast<sf::Vector2f>(integerMousePosition);
+}
+
 void View::setShapes(const std::vector<sf::Drawable*> &shapes)
 {
     this->shapes = shapes;
@@ -46,16 +60,18 @@ void View::setSize(const sf::Vector2u size)
     window->setView(view);
 }
 
-#include <iostream>
-
-void View::zoomView(float difference)
+void View::zoomView(float difference, sf::Vector2f target)
 {
     float newZoom = viewZoom + 0.5 * difference * viewZoom;
     if (newZoom > 0)
     {
+        sf::Vector2f targetPositionBefore = getAbsolutePosition(target);
         view.zoom(1/viewZoom);
         viewZoom = newZoom;
         view.zoom(viewZoom);
+        sf::Vector2f targetPositionAfter = getAbsolutePosition(target);
+        sf::Vector2f deltaTarget = (targetPositionAfter - targetPositionBefore);
+        view.move(-deltaTarget);
         window->setView(view);
     }
 }
@@ -79,11 +95,4 @@ bool View::isWindowOpen()
 bool View::windowPollEvent(sf::Event &event)
 {
     return window->pollEvent(event);
-}
-
-sf::Vector2f View::getMousePosition()
-{
-    sf::Vector2i integerMousePosition = sf::Mouse::getPosition(*window);
-    return static_cast<sf::Vector2f>(integerMousePosition);
-    //return sf::Vector2f(static_cast<float>(integerMousePosition.x), static_cast<float>(integerMousePosition.y));
 }

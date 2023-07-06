@@ -84,7 +84,7 @@ void Controller::handleMouseMove(const sf::Event &event)
 void Controller::handleMouseScroll(const sf::Event &event)
 {
     if (heldLControl) model->updateSimulationSpeed(event.mouseWheelScroll.delta);
-    else view->zoomView(-event.mouseWheelScroll.delta);
+    else view->zoomView(-event.mouseWheelScroll.delta, view->getMousePosition());
 }
 
 void Controller::handleEvents()
